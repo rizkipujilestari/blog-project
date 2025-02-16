@@ -997,7 +997,8 @@ select.selectmenu {
 
 /* --- contact form  ---- */
 
-.contactForm input[type="text"], .contactForm input[type="email"], .contactForm input[type="password"] {
+.contactForm input[type="text"], .contactForm input[type="email"], .contactForm input[type="password"], 
+  .contactForm input[type="select"] {
   width: 100%;
   min-height: 40px;
   padding-left: 20px;

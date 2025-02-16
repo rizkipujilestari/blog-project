@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -13,7 +17,9 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view('articles.list');
+        // show post by authenticated user
+        $articles = Article::orderBy('created_at', 'DESC')->where('user_id', Auth::user()->id)->paginate(3);
+        return view('articles.list', compact('articles'));
     }
 
     /**
@@ -23,7 +29,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        $categories = Category::all();
+        return view('articles.create', compact('categories'));
     }
 
     /**
@@ -34,7 +41,27 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title'         => 'required|max:100',
+            'content_value' => 'required',
+            'category_id'   => 'required',
+        ]);
+
+        try {
+            $post = new Article($validatedData);
+            $post->title = $request->title;
+            $post->slug = Str::slug($request->title, '-'); 
+            $post->content = $request->content_value;
+            $post->user_id = Auth::user()->id;
+            $post->category_id = $request->category_id;
+            $post->save();
+            
+            return redirect('/articles')->with('success', 'Success Create New Post!');
+            
+        } catch (\Throwable $e) {            
+            return redirect('/articles')->withErrors('Failed! '.$e->getMessage());
+        }
+
     }
 
     /**

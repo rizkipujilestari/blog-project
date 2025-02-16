@@ -30,4 +30,5 @@ Route::middleware(['auth', 'userAccess:admin,member'])->group(function () {
     Route::get('/articles', [ArticleController::class, 'index']);
     Route::get('/articles/new', [ArticleController::class, 'create']);
     Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('article.show');
+    Route::post('/articles', [ArticleController::class, 'store']);
 });

@@ -71,7 +71,7 @@
                         @else 
                             @if(in_array(auth()->user()->role, ['admin', 'member']))
                                 <li>
-                                    <a href="{{ url('/articles') }}">My Articles</a>
+                                    <a href="{{ url('/articles') }}">My Blog</a>
                                 </li>
                                 <li class="dropdown active">
                                     <a href="#"><i class="icon-user"></i> {{ $auth_user->name }} </a>

@@ -14,7 +14,8 @@ class PageController extends Controller
      */
     public function index()
     {
-        return view('post');
+        $articles = Article::orderBy('created_at', 'DESC')->get();
+        return view('blog', compact('articles'));
     }
     
     public function about()

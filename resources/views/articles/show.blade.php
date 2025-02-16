@@ -1,13 +1,13 @@
 @extends('layouts.main')
 
-@section('title', 'My Articles')
+@section('title', 'My Blog')
 
 @section('content')
     <div class="container">
       <div class="row">
 
         <div class="span4">
-          @include('layouts.left_sidebar')
+          @include('layouts.user_sidebar')
         </div>
 
         <div class="span8">

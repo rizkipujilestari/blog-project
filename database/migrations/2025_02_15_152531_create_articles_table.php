@@ -16,7 +16,7 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('title', 100);
-            $table->string('slug', 100);
+            $table->string('slug')->unique();
             $table->text('content');
             $table->text('thumbnail')->nullable();
             $table->string('status', 1)->default('1'); // 1=published, 0=unpublished
@@ -25,7 +25,7 @@ class CreateArticlesTable extends Migration
             $table->unsignedBigInteger('category_id');
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('category_id')->references('id')->on('category');
+            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

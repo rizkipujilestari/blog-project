@@ -1,52 +1,84 @@
 @extends('layouts.main')
 
-@section('title', 'My Articles')
+@section('title', 'My Blog')
 
 @section('content')
     <div class="container">
       <div class="row">
 
         <div class="span4">
-          @include('layouts.left_sidebar')
+          @include('layouts.user_sidebar')
         </div>
 
         <div class="span8">
-          <article>
-            <div class="row">
+          @if(session()->has('success'))
+              <div class="alert alert-success">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                  
+                  {{ session()->get('success') }}
+              </div>
+          @endif
 
-              <div class="span8">
-                <div class="post-image">
-                  <div class="post-heading">
-                    <h3>
-                      <a href="{{ url('/articles/test') }}">This is an example of standard post format</a>
-                    </h3>
+          @if ($errors->any())
+              <div class="alert alert-danger" style="margin: 5px; color:red;">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+
+                  <ul>
+                      @foreach ($errors->all() as $item)
+                          <li>{{ $item }}</li>
+                      @endforeach
+                  </ul>
+              </div>
+          @endif
+
+          @foreach ($articles as $article)
+            <article>
+              <div class="row">
+                <div class="span8">
+                  <div class="post-image">
+                    <div class="post-heading">
+                      <h3>
+                        <a href="{{ url('articles/'.$article->slug) }}">{{ $article->title }}</a>
+                      </h3>
+                    </div>
+
+                    @if (!is_null($article->thumbnail))
+                      <img src="{{ asset('images/'.$article->thumbnail) }}" alt="" />
+                    @endif
+
+                  </div>
+                  <div class="meta-post">
+                    <ul>
+                      <li><i class="icon-user"></i></li>
+                      <li>By <a href="#" class="author">{{ ($article->user_id == Auth::user()->id) ? 'Me' : $article->user->name; }}</a></li>
+                      <li>On <a href="#" class="date"> {{ $article->created_at->format('d F, Y H:i:s') }} </a> </li>
+                      <li>Category: <a href="#">{{ $article->category->name }}</a> </li>
+                    </ul>
+                  </div>
+                  <div class="post-entry">
+                    <p>
+                      {{ substr($article->content, 0, 500) }}...
+                    </p>
+                    <a href="" class="btn btn-theme">Edit Article</a>
                   </div>
                 </div>
-                <div class="meta-post">
-                  <ul>
-                    <li><i class="icon-file"></i></li>
-                    <li>By <a href="#" class="author">Admin</a></li>
-                    <li>On <a href="#" class="date">10 Jun, 2013</a></li>
-                    <li>Tags: <a href="#">Design</a>, <a href="#">Blog</a></li>
-                  </ul>
-                </div>
-                <div class="post-entry">
-                  <p>
-                    Qui ut ceteros comprehensam. Cu eos sale sanctus eligendi, id ius elitr saperet, ocurreret pertinacia pri an. No mei nibh consectetuer, semper laoreet perfecto ad qui, est rebum nulla argumentum ei. Fierent adipisci iracundia est ei, usu timeam persius
-                    ea. Usu ea justo malis, pri quando everti electram ei, ex homero omittam salutatus...
-                  </p>
-                  <a href="" class="btn btn-theme">Edit Article</a>
-                </div>
               </div>
-            </div>
-          </article>
+            </article>
+            @endforeach
 
-          <div id="pagination">
+            {{ $articles->links('layouts.pagination') }}
+
+          {{-- <div id="pagination">
             <span class="all">Page 1 of 3</span>
             <span class="current">1</span>
             <a href="#" class="inactive">2</a>
             <a href="#" class="inactive">3</a>
-          </div>
+          </div> --}}
+
         </div>
       </div>
     </div>
