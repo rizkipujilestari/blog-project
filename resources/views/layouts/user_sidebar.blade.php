@@ -1,6 +1,24 @@
 <aside class="left-sidebar">
 
+  <div class="widget">
+    <legend class="widgetheading">Menu</legend>
+    <ul class="cat">
+      <li style="{{ request()->routeIs('newpost') ? 'font-weight:bold;': ''}}"> <i class="icon-angle-right"></i> 
+        <a href="{{ url('/articles/new') }}"> Write New Post &nbsp;<i class="icon-pencil"></i> </a> 
+      </li>
+
+      <li style="{{ request()->routeIs('articles') ? 'font-weight:bold;': ''}}"><i class="icon-angle-right"></i> 
+        <a href="{{ url('/articles') }}"> My Posts </a> 
+      </li>
+
+      <li style="{{ request()->routeIs('comments') ? 'font-weight:bold;': ''}}"><i class="icon-angle-right"></i> 
+        <a href="{{ url('/comments') }}"> My Comments </a> 
+      </li>
+    </ul>
+  </div>
+
   @if (!request()->routeIs('comments'))
+  @if (!request()->routeIs('newpost'))
     <div class="widget">
       <legend class="widgetheading">Filter</legend>
       <!-- Terdapat fitur filter posting dan sorting. Filter posting terdapat juga dalam fitur search atau pencarian. -->
@@ -43,15 +61,7 @@
       </form>
     </div>
   @endif
-
-  <div class="widget">
-    <legend class="widgetheading">Menu</legend>
-    <ul class="cat">
-      <li><i class="icon-angle-right"></i> <a href="{{ url('/articles/new') }}"> <b>Write New Post</b> </a> </li>
-      <li><i class="icon-angle-right"></i> <a href="{{ url('/articles') }}"> My Posts </a> </li>
-      <li><i class="icon-angle-right"></i> <a href="{{ url('/comments') }}"> My Comments </a> </li>
-    </ul>
-  </div>
+  @endif
   
   <div class="widget">
     <legend class="widgetheading">Categories</legend>

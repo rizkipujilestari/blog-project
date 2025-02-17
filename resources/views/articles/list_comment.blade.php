@@ -54,6 +54,8 @@
                 </div>
               </article>
             @endforeach
+          
+            {{ $comments->links('layouts.pagination') }}
 
           @else
             <b>No comment.</b>

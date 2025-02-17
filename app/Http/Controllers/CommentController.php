@@ -15,7 +15,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::where('user_id', Auth::user()->id)->get();
+        $comments = Comment::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(5);
         return view('articles.list_comment', compact('comments'));
     }
 
