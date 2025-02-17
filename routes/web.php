@@ -30,18 +30,6 @@ Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'auth']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
-Route::get('/test', function() {
-    $post = Article::find(2);
-    // delete existing image
-    if ($post->thumbnail) {
-        // Storage::delete('public/upload/' . $post->thumbnail);
-        $existing = public_path($post->thumbnail);
-        if (file_exists($existing)) {
-            unlink($existing);
-        }
-    }
-});
-
 Route::middleware(['auth', 'userAccess:admin,member'])->group(function () {
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles');
     Route::get('/articles/new', [ArticleController::class, 'create'])->name('newpost');
