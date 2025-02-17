@@ -4,6 +4,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageController;
+use App\Models\Article;
 use Illuminate\Support\Facades\Route;
 use Intervention\Image\ImageManager;
 
@@ -28,6 +29,18 @@ Route::post('/register', [AuthController::class, 'store']);
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'auth']);
 Route::get('/logout', [AuthController::class, 'logout']);
+
+Route::get('/test', function() {
+    $post = Article::find(2);
+    // delete existing image
+    if ($post->thumbnail) {
+        // Storage::delete('public/upload/' . $post->thumbnail);
+        $existing = public_path($post->thumbnail);
+        if (file_exists($existing)) {
+            unlink($existing);
+        }
+    }
+});
 
 Route::middleware(['auth', 'userAccess:admin,member'])->group(function () {
     Route::get('/articles', [ArticleController::class, 'index'])->name('articles');

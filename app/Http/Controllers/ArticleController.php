@@ -171,7 +171,10 @@ class ArticleController extends Controller
             {                
                 // delete existing image
                 if ($post->thumbnail) {
-                    Storage::delete('public/upload/' . $post->thumbnail);
+                    $existing = public_path($post->thumbnail);
+                    if (file_exists($existing)) {
+                        unlink($existing);
+                    }
                 }
 
                 $file = $request->file('thumbnail');
