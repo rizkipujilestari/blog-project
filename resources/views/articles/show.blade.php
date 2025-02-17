@@ -11,112 +11,101 @@
         </div>
 
         <div class="span8">
+          <article class="single">
+              <div class="row">
 
-            <article class="single">
-                <div class="row">
-
-                <div class="span8">
-                  <div class="post-image">
-                    <div class="post-heading">
-                      <h3> <b>Article Detail</b> </h3>
-                    </div>
-                    <img src="{{ asset('eterna/img/dummies/blog/img1.jpg') }}" alt="" />
+              <div class="span8">
+                <div class="post-image">
+                  <div class="post-heading">
+                    <h3> <b>{{ $article->title }}</b> </h3>
                   </div>
-                  <div class="meta-post">
-                    <ul>
-                      <li><i class="icon-file"></i></li>
-                      <li>By <a href="#" class="author">Admin</a></li>
-                      <li>On <a href="#" class="date">10 Jun, 2013</a></li>
-                      <li>Tags: <a href="#">Design</a>, <a href="#">Blog</a></li>
-                    </ul>
-                  </div>
-                  <p>
-                    Qui ut ceteros comprehensam. Cu eos sale sanctus eligendi, id ius elitr saperet, ocurreret pertinacia pri an. No mei nibh consectetuer, semper laoreet perfecto ad qui, est rebum nulla argumentum ei. Fierent adipisci iracundia est ei, usu timeam persius
-                    ea. Usu ea justo malis, pri quando everti electram ei, ex homero omittam salutatus sed. Dicam appetere ne qui, no has scripta appellantur. Mazim alienum appellantur eu cum, cu ullum officiis pro, pri at eius erat accusamus. Eos id
-                    hinc fierent indoctum, ad accusam consetetur voluptatibus sit. His at quod impedit. Eu zril quando perfecto mel, sed eu eros debet.
-                  </p>
-                  <blockquote>
-                    Lorem ipsum dolor sit amet, ei quod constituto qui. Summo labores expetendis ad quo, lorem luptatum et vis. No qui vidisse signiferumque...
-                  </blockquote>
-                  <p>
-                    Fierent adipisci iracundia est ei, usu timeam persius ea. Usu ea justo malis, pri quando everti electram ei, ex homero omittam salutatus sed. Dicam appetere ne qui, no has scripta appellantur. Mazim alienum appellantur eu cum, cu ullum officiis pro, pri
-                    at eius erat accusamus.
-                  </p>
-
-
-
+                  
+                  @if (!is_null($article->thumbnail))
+                    <img src="{{ asset($article->thumbnail) }}" alt="" />
+                  @endif
+                  
                 </div>
+                <div class="meta-post">
+                  <ul>
+                    <li><i class="icon-user"></i>&nbsp; Posted By <a href="#" class="author">{{ ($article->user_id == Auth::user()->id) ? 'Me' : $article->user->name; }}</a></li>
+                    <li>On <a href="#" class="date"> {{ $article->created_at->format('d F, Y H:i:s') }} </a> </li>
+                    <li>Category: <a href="#">{{ $article->category->name }}</a> </li>
+                  </ul>
+                </div>
+                <p>
+                  {{ $article->content }}
+                </p>
               </div>
-            </article>
-
-            <!-- author info -->
-            <div class="about-author">
-              <a href="#" class="thumbnail align-left"><img src="{{ asset('eterna/img/avatar.png') }}" alt="" /></a>
-              <h5><strong><a href="#">John doe</a></strong></h5>
-              <p>
-                Qui ut ceteros comprehensam. Cu eos sale sanctus eligendi, id ius elitr saperet, ocurreret pertinacia pri an. No mei nibh consectetuer, semper ad qui, est rebum nulla argumentum ei.
-              </p>
             </div>
+          </article>
 
-            <div class="comment-area">
+          <!-- author info -->
+          <div class="about-author" style="width: 100%; max-width:100%;">
+            <a href="#" class="thumbnail align-left"> <img src="{{ asset('user-author-icon.png') }}" width="50px"> </a>
+            <h5><strong><a href="#">{{ $article->user->name }}</a></strong></h5>
+            <p>
+              {{ $article->user->bio }}
+            </p>
+          </div>
 
-              <h4>4 Comments</h4>
-              <div class="media">
-                <a href="#" class="pull-left"><img src="{{ asset('eterna/img/avatar.png') }}" alt="" class="img-circle" /></a>
-                <div class="media-body">
-                  <div class="media-content">
-                    <h6><span>March 12, 2013</span> Michael Simpson</h6>
-                    <p>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </p>
+          <div class="comment-area">
 
-                    <a href="#" class="align-right">Reply</a>
-                  </div>
-                </div>
-              </div>
-              <div class="media">
-                <a href="#" class="pull-left"><img src="{{ asset('eterna/img/avatar.png') }}" alt="" class="img-circle" /></a>
-                <div class="media-body">
-                  <div class="media-content">
-                    <h6><span>March 12, 2013</span> Smith karlsen</h6>
-                    <p>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </p>
+            <legend>{{ $article->comment_count }} Comment(s)</legend>
 
-                    <a href="#" class="align-right">Reply</a>
-                  </div>
-                  <div class="media">
-                    <a href="#" class="pull-left"><img src="{{ asset('eterna/img/avatar.png') }}" alt="" class="img-circle" /></a>
-                    <div class="media-body">
-                      <div class="media-content">
-                        <h6><span>June 22, 2013</span> Jay Moeller</h6>
-                        <p>
-                          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                        </p>
+            @foreach ($comments as $comment)
+              @if ($comment->is_reply == '0')
+                <div class="media">
+                  <a href="#" class="pull-left">
+                    @if ($comment->user_id == $article->user_id)
+                      <img src="{{ asset('user-author-icon.png') }}" width="45px" class="img-circle" />
+                    @else
+                      <img src="{{ asset('user-comment-icon.png') }}" width="50px" class="img-circle" />
+                    @endif  
+                  </a>
 
-                        <a href="#" class="align-right">Reply</a>
-                      </div>
+                  <div class="media-body">
+                    <div class="media-content">
+                      <h6><span>{{ $comment->created_at->format('d F, Y H:i:s') }}</span> {{ $comment->user->name }}</h6>
+                      <p>
+                        {{ $comment->comment }}
+                      </p>
+                      <p>
+                        <b>{{ $comment->children->count() }} replies</b>
+                      </p>
                     </div>
+                    
+                    @if ($comment->children->isNotEmpty())
+                      @foreach ($comment->children as $com)
+                        <div class="media">
+                          <a href="#" class="pull-left">
+                            @if ($com->user_id == $article->user_id)
+                              <img src="{{ asset('user-author-icon.png') }}" width="45px" class="img-circle" />
+                            @else
+                              <img src="{{ asset('user-comment-icon.png') }}" width="50px" class="img-circle" />
+                            @endif
+                          </a>
+
+                          <div class="media-body">
+                            <div class="media-content">
+                              <h6>{{ $com->user->name }} <span>replied at {{ $com->created_at->format('d F, Y H:i:s') }}</span></h6>
+                              <p>
+                                {{ $com->comment }}
+                              </p>
+                              {{-- <a href="#" class="align-right">Reply</a> --}}
+                            </div>
+                          </div>
+                        </div>
+                      @endforeach
+                    @endif
+
                   </div>
                 </div>
-              </div>
-              <div class="media">
-                <a href="#" class="pull-left"><img src="{{ asset('eterna/img/avatar.png') }}" alt="" class="img-circle" /></a>
-                <div class="media-body">
-                  <div class="media-content">
-                    <h6><span>June 24, 2013</span> Dean Zaloza</h6>
-                    <p>
-                      Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </p>
+              @endif
+            @endforeach
 
-                    <a href="#" class="align-right">Reply</a>
-                  </div>
-                </div>
-              </div>
 
-              <div class="marginbot30"></div>
-              
-            </div>
+          </div>
+          
         </div>
 
       </div>

@@ -71,6 +71,7 @@ class AuthController extends Controller
             'email'            => 'required|email|unique:users',
             'password'         => 'required|min:4',
             'confirm_password' => 'required|same:password',
+            'bio'              => 'nullable',
         ]);
         
         if($validator->fails()){

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PageController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'index']);
 Route::get('/about', [PageController::class, 'about']);
+Route::get('/blog', [PageController::class, 'blog']);
 Route::get('/blog/{slug}', [PageController::class, 'show'])->name('blog.show');
 
 Route::get('/register', [AuthController::class, 'register'])->name('register');
@@ -31,4 +33,6 @@ Route::middleware(['auth', 'userAccess:admin,member'])->group(function () {
     Route::get('/articles/new', [ArticleController::class, 'create']);
     Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('article.show');
     Route::post('/articles', [ArticleController::class, 'store']);
+
+    Route::post('/comment', [CommentController::class, 'store']);
 });

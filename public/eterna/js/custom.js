@@ -23,7 +23,7 @@ jQuery(document).ready(function ($) {
         $(".nav li").parent().addClass("bold");
         optionsList += '<option value="' + $anchor.attr('href') + '">' + indent + ' ' + $anchor.text() + '</option>';
       }).end()
-      .after('<select class="selectmenu">' + optionsList + '</select>');
+      .after('<select id="selectmenu" name="selectmenu" class="selectmenu">' + optionsList + '</select>');
 
     $('select.selectmenu').on('change', function () {
       window.location = $(this).val();

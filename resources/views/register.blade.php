@@ -24,31 +24,38 @@
                     @csrf
                     <div class="row contactForm">
                         <div class="span8 form-group field">
-                            <label>Name</label>
+                            <label>Name*</label>
                         </div>
                         <div class="span8 form-group field">
                             <input type="text" name="name" id="name" placeholder="Your Name" />
                         </div>
                         
                         <div class="span8 form-group field">
-                            <label>Email</label>
+                            <label>Email*</label>
                         </div>
                         <div class="span8 form-group field">
                             <input type="email" name="email" id="email" placeholder="youremail@domain.com" />
                         </div>
                         
                         <div class="span8 form-group field margintop10">
-                            <label>Password</label>
+                            <label>Password*</label>
                         </div>
                         <div class="span8 form-group field">
                             <input type="password" name="password" id="password" placeholder="******" />
                         </div>
 
                         <div class="span8 form-group field margintop10">
-                            <label>Confirm Password</label>
+                            <label>Confirm Password*</label>
                         </div>
                         <div class="span8 form-group field">
                             <input type="password" name="confirm_password" id="confirm_password" placeholder="******" />
+                        </div>
+                        
+                        <div class="span8 form-group field">
+                            <label>Bio</label>
+                        </div>
+                        <div class="span8 form-group field">
+                            <input type="text" name="bio" id="bio" placeholder="Bio or Favorite Quotes" />
                         </div>
                         
                         <div class="span8 form-group">

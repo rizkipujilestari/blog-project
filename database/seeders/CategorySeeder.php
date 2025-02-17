@@ -16,6 +16,10 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
+                'name' => 'News',
+                'slug' => 'news',
+            ],
+            [
                 'name' => 'Movies',
                 'slug' => 'movies',
             ],
@@ -23,11 +27,26 @@ class CategorySeeder extends Seeder
                 'name' => 'Series',
                 'slug' => 'series',
             ],
+            [
+                'name' => 'Actors',
+                'slug' => 'actors',
+            ],
+            [
+                'name' => 'Director and Crews',
+                'slug' => 'director-and-crews',
+            ],
+            [
+                'name' => 'Cinematography',
+                'slug' => 'cinematography',
+            ],
+            [
+                'name' => 'Uncategorized',
+                'slug' => 'uncategorized',
+            ],
         ];
         
         foreach ($categories as $key => $value) {
             Category::create($value);
         }
-
     }
 }

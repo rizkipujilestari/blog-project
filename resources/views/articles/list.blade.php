@@ -35,50 +35,57 @@
               </div>
           @endif
 
-          @foreach ($articles as $article)
-            <article>
-              <div class="row">
-                <div class="span8">
-                  <div class="post-image">
-                    <div class="post-heading">
-                      <h3>
-                        <a href="{{ url('articles/'.$article->slug) }}">{{ $article->title }}</a>
-                      </h3>
+          @if ($filter)
+            <div class="alert alert-info">
+              <b>Filter :</b>
+              <ul>
+                  @foreach ($filter as $row)
+                      <li>{{ $row }}</li>
+                  @endforeach
+              </ul>
+            </div>
+          @endif
+
+          @if ($articles->count() > 0)
+            @foreach ($articles as $article)
+              <article>
+                <div class="row">
+                  <div class="span8">
+                    <div class="post-image">
+                      <div class="post-heading">
+                        <h3>
+                          <a href="{{ url('articles/'.$article->slug) }}">{{ $article->title }}</a>
+                        </h3>
+                      </div>
+
+                      @if (!is_null($article->thumbnail))
+                        <img src="{{ asset($article->thumbnail) }}" alt="" />
+                      @endif
+
                     </div>
-
-                    @if (!is_null($article->thumbnail))
-                      <img src="{{ asset('images/'.$article->thumbnail) }}" alt="" />
-                    @endif
-
-                  </div>
-                  <div class="meta-post">
-                    <ul>
-                      <li><i class="icon-user"></i></li>
-                      <li>By <a href="#" class="author">{{ ($article->user_id == Auth::user()->id) ? 'Me' : $article->user->name; }}</a></li>
-                      <li>On <a href="#" class="date"> {{ $article->created_at->format('d F, Y H:i:s') }} </a> </li>
-                      <li>Category: <a href="#">{{ $article->category->name }}</a> </li>
-                    </ul>
-                  </div>
-                  <div class="post-entry">
-                    <p>
-                      {{ substr($article->content, 0, 500) }}...
-                    </p>
-                    <a href="" class="btn btn-theme">Edit Article</a>
+                    <div class="meta-post">
+                      <ul>
+                        <li><i class="icon-user"></i>&nbsp; Posted By <a href="#" class="author">{{ ($article->user_id == Auth::user()->id) ? 'Me' : $article->user->name; }}</a></li>
+                        <li>On <a href="#" class="date"> {{ $article->created_at->format('d F, Y H:i:s') }} </a> </li>
+                        <li>Category: <a href="#">{{ $article->category->name }}</a> </li>
+                      </ul>
+                    </div>
+                    <div class="post-entry">
+                      <p>
+                        {{ substr($article->content, 0, 500) }}...
+                      </p>
+                      <a href="" class="btn btn-theme">Edit Article</a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </article>
+              </article>
             @endforeach
 
             {{ $articles->links('layouts.pagination') }}
 
-          {{-- <div id="pagination">
-            <span class="all">Page 1 of 3</span>
-            <span class="current">1</span>
-            <a href="#" class="inactive">2</a>
-            <a href="#" class="inactive">3</a>
-          </div> --}}
-
+          @else
+            <b>No post.</b>
+          @endif
         </div>
       </div>
     </div>

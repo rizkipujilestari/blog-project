@@ -67,7 +67,7 @@
                         <label>Category</label>
                     </div>
                     <div class="span8 form-group">
-                        <select name="category_id" id="category_id" class="input-block-level">
+                        <select name="category_id" id="category_id" class="input-block-level" style="background:#fff; box-shadow:none; border-color: #bbb; border-radius: 5px;">
                             <option value="">-- Content Category --</option>
                             @foreach ($categories as $row)
                                 <option value="{{ $row->id }}">
