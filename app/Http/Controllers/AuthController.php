@@ -43,9 +43,9 @@ class AuthController extends Controller
         if (Auth::attempt($authInfo))
         {
             if (Auth::user()->role == 'admin') {
-                return redirect('articles');
+                return redirect('articles')->with('success', 'Login Success! Welcome back ' . Auth::user()->name . '!');
             } else {
-                return redirect('articles');
+                return redirect('articles')->with('success', 'Login Success! Welcome back ' . Auth::user()->name . '!');
             }
         }
         else {
