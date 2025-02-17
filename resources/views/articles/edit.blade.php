@@ -11,7 +11,7 @@
         </div>
 
         <div class="span8">
-            <h4>Create New Article</h4>
+            <h4>Edit Article</h4>
             @if ($errors->any())
                 <div class="alert alert-danger" style="margin: 5px; color:red;">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -26,24 +26,14 @@
                 </div>
             @endif
 
-            @if(session()->has('message'))
-                <div class="alert alert-success">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    
-                    {{ session()->get('message') }}
-                </div>
-            @endif
-
-            <form method="POST" action="{{ url('/articles') }}" role="form" >
+            <form method="POST" action="{{ url('articles/'.$article->slug) }}" role="form" >
                 @csrf
                 <div class="row contactForm">
                     <div class="span8 form-group field">
                         <label>Title</label>
                     </div>
                     <div class="span8 form-group field">
-                        <input type="text" name="title" id="title" placeholder="Title" />
+                        <input type="text" name="title" id="title" placeholder="Title" value="{{ $article->title }}" />
                     </div>
 
                     {{-- <div class="span8 form-group field">
@@ -59,7 +49,8 @@
                     <div class="span8 form-group">
                         <p>
                             <textarea rows="12" class="input-block-level" placeholder="*Your content here" 
-                                name="content_value" id="content_value" style="max-height: 200px; max-width:100%; overflow-y:auto;"></textarea>
+                                name="content_value" id="content_value" style="max-height: 200px; max-width:100%; overflow-y:auto;"
+                            >{{ $article->content }}</textarea>
                         </p>
                     </div>
 
@@ -70,7 +61,7 @@
                         <select name="category_id" id="category_id" class="input-block-level" style="background:#fff; box-shadow:none; border-color: #bbb; border-radius: 5px;">
                             <option value="">-- Content Category --</option>
                             @foreach ($categories as $row)
-                                <option value="{{ $row->id }}">
+                                <option value="{{ $row->id }}" @if($article->category_id == $row->id) selected @endif>
                                     {{ $row->name }}
                                 </option>
                             @endforeach

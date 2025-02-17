@@ -63,7 +63,7 @@ class ArticleController extends Controller
         $articles = $query->paginate(3);
         $categories = Category::all();
 
-        return view('articles.list', compact('articles', 'categories', 'filter'));
+        return view('articles.list_article', compact('articles', 'categories', 'filter'));
     }
 
     /**
@@ -128,9 +128,11 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $article = Article::where('slug', $slug)->firstOrFail();
+        $categories = Category::all();
+        return view('articles.edit', compact('article', 'categories'));
     }
 
     /**
@@ -140,9 +142,26 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        //
+        $request->validate([
+            'title'         => 'required|max:100',
+            'content_value' => 'required',
+            'category_id'   => 'required',
+        ]);
+        
+        try {
+            $post = Article::where('slug', $slug)->firstOrFail();
+            $post->title = $request->title;
+            $post->content = $request->content_value;
+            $post->category_id = $request->category_id;
+            $post->update();
+            
+            return redirect('/articles')->with('success', 'Success Update Post!');
+            
+        } catch (\Throwable $e) {            
+            return redirect('/articles')->withErrors('Failed! '.$e->getMessage());
+        }
     }
 
     /**
@@ -151,8 +170,19 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
-        //
+        try {
+            $post = Article::where('slug', $slug)->first();
+
+            if ($post->count() > 0) {
+                $post->delete(); // Soft delete the post
+                return redirect('/articles')->with('success', 'Post successfully deleted!');
+            } else {
+                return redirect('/articles')->withErros('Failed! Post not found.');
+            }
+        } catch (\Throwable $e) {            
+            return redirect('/articles')->withErrors('Failed! '.$e->getMessage());
+        }
     }
 }

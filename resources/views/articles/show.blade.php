@@ -15,6 +15,8 @@
               <div class="row">
 
               <div class="span8">
+                <span class="align-right"><a class="btn btn-theme" href="{{ url('/articles') }}">Back to Post List</a></span>
+
                 <div class="post-image">
                   <div class="post-heading">
                     <h3> <b>{{ $article->title }}</b> </h3>

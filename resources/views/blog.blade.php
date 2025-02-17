@@ -35,7 +35,7 @@
                     </div>
                     <div class="meta-post">
                       <ul>
-                        <li><i class="icon-user"></i>&nbsp; Posted By <a href="#" class="author">{{ ($article->user_id == Auth::user()->id) ? 'Me' : $article->user->name; }}</a></li>
+                        <li><i class="icon-user"></i>&nbsp; Posted By <a href="#" class="author">{{ $article->user->name }}</a></li>
                         <li>On <a href="#" class="date"> {{ $article->created_at->format('d F, Y H:i:s') }} </a> </li>
                         <li>Category: <a href="#">{{ $article->category->name }}</a> </li>
                       </ul>

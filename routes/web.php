@@ -31,8 +31,12 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::middleware(['auth', 'userAccess:admin,member'])->group(function () {
     Route::get('/articles', [ArticleController::class, 'index']);
     Route::get('/articles/new', [ArticleController::class, 'create']);
-    Route::get('/articles/{slug}', [ArticleController::class, 'show'])->name('article.show');
+    Route::get('/articles/{slug}', [ArticleController::class, 'show']);
+    Route::get('/articles/edit/{slug}', [ArticleController::class, 'edit']);
+    Route::post('/articles/{slug}', [ArticleController::class, 'update']);
+    Route::delete('/articles/{slug}', [ArticleController::class, 'destroy']);
     Route::post('/articles', [ArticleController::class, 'store']);
-
+    
+    Route::get('/comments', [CommentController::class, 'index'])->name('comments');
     Route::post('/comment', [CommentController::class, 'store']);
 });
