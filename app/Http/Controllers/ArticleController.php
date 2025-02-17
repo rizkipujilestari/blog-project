@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Route;
+use Intervention\Image\Laravel\Facades\Image;
 
 class ArticleController extends Controller
 {
@@ -89,10 +92,21 @@ class ArticleController extends Controller
             'title'         => 'required|max:100',
             'content_value' => 'required',
             'category_id'   => 'required',
+            'thumbnail' => 'image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         try {
             $post = new Article($validatedData);
+
+            if($request->hasfile('thumbnail'))
+            {
+                $file = $request->file('thumbnail');
+                $extension = $file->getClientOriginalExtension();
+                $filename = Str::slug($request->title, '-').'_' . time() . '.'.$extension;
+                $file->move('upload/', $filename);
+                $post->thumbnail = 'upload/'.$filename;
+            }
+
             $post->title = $request->title;
             $post->slug = Str::slug($request->title, '-'); 
             $post->content = $request->content_value;
@@ -152,9 +166,28 @@ class ArticleController extends Controller
         
         try {
             $post = Article::where('slug', $slug)->firstOrFail();
+
+            if ($request->hasFile('thumbnail')) 
+            {                
+                // delete existing image
+                if ($post->thumbnail) {
+                    Storage::delete('public/upload/' . $post->thumbnail);
+                }
+
+                $file = $request->file('thumbnail');
+                $extension = $file->getClientOriginalExtension();
+                $filename = Str::slug($request->title, '-').'_' . time() . '.'.$extension;
+                $file->move('upload/', $filename);
+                $imageName = 'upload/'.$filename;
+                
+            } else {
+                $imageName = $post->thumbnail;
+            }
+            
             $post->title = $request->title;
             $post->content = $request->content_value;
             $post->category_id = $request->category_id;
+            $post->thumbnail = $imageName;
             $post->update();
             
             return redirect('/articles')->with('success', 'Success Update Post!');

@@ -36,7 +36,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ url('/articles') }}" role="form" >
+            <form method="POST" action="{{ url('/articles') }}" role="form" enctype="multipart/form-data">
                 @csrf
                 <div class="row contactForm">
                     <div class="span8 form-group field">
@@ -46,12 +46,12 @@
                         <input type="text" name="title" id="title" placeholder="Title" />
                     </div>
 
-                    {{-- <div class="span8 form-group field">
-                        <label>Thumbnail Picture</label>
+                    <div class="span8 form-group field">
+                        <label>Thumbnail</label>
                     </div>
                     <div class="span8 form-group field" style="margin-bottom:10px;">
                         <input type="file" name="thumbnail" id="thumbnail" placeholder="Choose File" />
-                    </div> --}}
+                    </div>
 
                     <div class="span8 form-group field">
                         <label>Content</label>

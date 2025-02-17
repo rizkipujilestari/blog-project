@@ -42,7 +42,7 @@
           </article>
 
           <!-- author info -->
-          <div class="about-author" style="width: 100%; max-width:100%;">
+          <div class="about-author" style="width:90%; max-width:100%;">
             <a href="#" class="thumbnail align-left"> <img src="{{ asset('user-author-icon.png') }}" width="50px"> </a>
             <h5><strong><a href="#">{{ $article->user->name }}</a></strong></h5>
             <p>

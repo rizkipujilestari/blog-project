@@ -26,7 +26,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ url('articles/'.$article->slug) }}" role="form" >
+            <form method="POST" action="{{ url('articles/'.$article->slug) }}" role="form" enctype="multipart/form-data">
                 @csrf
                 <div class="row contactForm">
                     <div class="span8 form-group field">
@@ -36,12 +36,15 @@
                         <input type="text" name="title" id="title" placeholder="Title" value="{{ $article->title }}" />
                     </div>
 
-                    {{-- <div class="span8 form-group field">
-                        <label>Thumbnail Picture</label>
+                    <div class="span8 form-group field">
+                        <label>Change Thumbnail</label>
                     </div>
                     <div class="span8 form-group field" style="margin-bottom:10px;">
                         <input type="file" name="thumbnail" id="thumbnail" placeholder="Choose File" />
-                    </div> --}}
+                        <p>
+                            <img src="{{ asset($article->thumbnail) }}" width="100px">
+                        </p>
+                    </div>
 
                     <div class="span8 form-group field">
                         <label>Content</label>
