@@ -83,5 +83,10 @@ class PageController extends Controller
 
         return view('blog', compact('articles', 'categories', 'filter'));
     }
+
+    function profile() 
+    {
+        return view('profile');
+    }
     
 }

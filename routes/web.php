@@ -41,4 +41,6 @@ Route::middleware(['auth', 'userAccess:admin,member'])->group(function () {
     
     Route::get('/comments', [CommentController::class, 'index'])->name('comments');
     Route::post('/comment', [CommentController::class, 'store']);
+
+    Route::get('/profile', [PageController::class, 'profile']);
 });

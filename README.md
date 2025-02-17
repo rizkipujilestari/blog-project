@@ -12,7 +12,7 @@ Project Blog 'CineReview'
 - run 'php artisan migrate --seed' to migrate tables
 - run 'php artisan serve' or with XAMPP / Laragon
 
-## Laravel Sponsors
+## Helpdesk
 
 If something wrong or any error occurs, just email to rizkipuj@gmail.com
 Thank you.

@@ -77,7 +77,7 @@
                                     <a href="#"><i class="icon-user"></i> {{ $auth_user->name }} </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="#">Profile</a>
+                                            <a href="{{ url('/profile') }}">Profile</a>
                                         </li>
                                         <li>
                                             <a href="{{ url('/logout') }}">Logout</a>
